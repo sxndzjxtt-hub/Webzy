@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Webzy AI</title>
+</head>
+
+<body style="background:#0f172a;color:white;text-align:center;padding:20px;">
+
+<h1>🚀 Webzy AI</h1>
+<p>No Code. Just Command.</p>
+
+<textarea id="prompt" style="width:90%;height:100px;"></textarea><br>
+<button onclick="generate()">Generate</button>
+
+<iframe id="output" style="width:95%;height:400px;margin-top:20px;"></iframe>
+
+<script>
+async function generate() {
+  let prompt = document.getElementById("prompt").value;
+
+  let res = await fetch("/api/generate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ prompt })
+  });
+
+  let html = await res.text();
+  document.getElementById("output").srcdoc = html;
+}
+</script>
+
+</body>
+</html>
